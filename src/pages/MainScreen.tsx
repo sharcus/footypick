@@ -3,10 +3,11 @@ import { useState } from "react";
 import Inventory from "../code/Inventory";
 import Leagues from "../code/Leagues";
 import Match from "../code/Match";
-import Team from "../code/team";
+import Team from "../code/Team";
 import Score from "../code/Score";
 import EditScore from "../components/EditScore";
 import MatchLine from "../components/MatchLine";
+import AnimatedHeader from "../components/AnimatedHeader";
 
 export default function MainScreen() {
   const [expanded, setExpanded] = useState<number | null>(null);
@@ -19,16 +20,12 @@ export default function MainScreen() {
   const handleChangeScore = (
     index: number,
     isHome: boolean,
-    newScore: string,
+    newDigit: string,
   ) => {
-    if (newScore.length == 0) newScore = "0";
-    else if (newScore.length > 1 && newScore.charAt(0) === "0")
-      newScore = newScore.substring(1);
+    const supportedSymbols = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+    if (supportedSymbols.indexOf(newDigit) < 0) return;
 
-    let sc = parseInt(newScore, 10);
-
-    if (sc < 0) sc = 0;
-    if (sc > 20) sc = 20;
+    let digit = parseInt(newDigit, 10);
 
     const updatedMatches = matches.map((match, i) => {
       if (i === index) {
@@ -47,9 +44,21 @@ export default function MainScreen() {
 
         const newMatch = new Match(homeTeam, awayTeam);
 
+        let val = isHome
+          ? match.predictedScore.homeGoals
+          : match.predictedScore.awayGoals;
+
+        if (digit == 0) {
+          if (val == 1) val = 10;
+          else val = 0;
+        } else {
+          if (val > 1) val = digit;
+          else val = val * 10 + digit;
+        }
+
         newMatch.predictedScore = new Score(
-          isHome ? sc : match.predictedScore.homeGoals,
-          !isHome ? sc : match.predictedScore.awayGoals,
+          isHome ? val : match.predictedScore.homeGoals,
+          !isHome ? val : match.predictedScore.awayGoals,
         );
 
         newMatch.resultScore = new Score(
@@ -62,8 +71,6 @@ export default function MainScreen() {
 
       return match;
     });
-
-    console.log(updatedMatches);
 
     setMatches(updatedMatches);
   };
@@ -82,6 +89,7 @@ export default function MainScreen() {
           exit={{ opacity: 0 }}
           className="space-y-3"
         >
+          <AnimatedHeader text="Serie A - Gameday 18" />
           {matches.map((v, i) => (
             <MatchLine
               key={i}

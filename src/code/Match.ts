@@ -1,4 +1,4 @@
-import Team from "./team"
+import Team from "./Team"
 import Score from "./Score"
 
 export default class Match {

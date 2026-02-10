@@ -14,8 +14,8 @@ const ScoreInput: FC<ScoreInputProps> = ({ value, onChange }) => {
   return (
     <div className="w-[150px] aspect-square bg-blue-500 mx-[25px]">
       <input
-        onChange={(e) => {
-          onChange(e.target.value);
+        onKeyDown={(e) => {
+          onChange(e.key);
         }}
         className="cursor-pointer caret-transparent text-8xl inline-block w-full text-center h-full [appearance:textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
         type="number"
