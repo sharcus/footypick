@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import type Team from "../code/team";
+import type Team from "../code/Team";
 
 interface MatchLineProps {
   home: Team;
