@@ -28,7 +28,7 @@ const AnimatedHeader: FC<AnimatedHeaderProps> = ({ text }) => {
       style={{ display: "flex", gap: "0.05em", justifyContent: "center" }}
     >
       {text.split("").map((char, i) => (
-        <motion.span key={i} variants={letter}>
+        <motion.span key={i} variants={letter} className="text-3xl">
           {char === " " ? "\u00A0" : char}
         </motion.span>
       ))}

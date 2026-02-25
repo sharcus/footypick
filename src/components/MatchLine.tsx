@@ -19,12 +19,12 @@ const MatchLine: FC<MatchLineProps> = ({
   return (
     <div
       onClick={onMatchClicked}
-      className="cursor-pointer bg-gray-800 p-3 flex items-center gap-2 w-[500px] justify-center mx-auto"
+      className="cursor-pointer bg-gray-800 p-3 flex items-center gap-1 w-full justify-center mx-auto max-w-[600px]"
     >
       <div className="w-10 h-10">
         <img src={home.logoSmallUrl} />
       </div>
-      <span className="w-[150px] text-center">{home.name}</span>
+      <span className="w-[calc(50%_-_80px)] text-center">{home.name}</span>
       <div className="w-10 h-10 bg-blue-500">
         <span className="inline-block w-full text-2xl text-center">
           {scoreHome}
@@ -35,7 +35,7 @@ const MatchLine: FC<MatchLineProps> = ({
           {scoreAway}
         </span>
       </div>
-      <span className="w-[150px] text-center">{away.name}</span>
+      <span className="w-[calc(50%_-_80px)] text-center">{away.name}</span>
       <div className="w-10 h-10">
         <img src={away.logoSmallUrl} />
       </div>
